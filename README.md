@@ -97,8 +97,22 @@ Please organize your results in the following format:
 ```
 
 ### Detail Image Caption Construction
-Organize your image data in `.parquet` format with binary image stored in the `frame` field.
+For detail image caption construction, first download SAM, Owlv2, LLaVA-v1.5 (or other LVLM), LLaMA-2 and place them under `ckpt` folder: 
+```
+ckpt
+├─sam
+|  ├─sam_vit_h_4b8939.pth
+|  └─sam_vit_l_0b3195.pth
+├─owlv2-large-patch14-ensemble
+├─llava-v1.5-13b
+├─llava-v1.5-7b
+├─llava-v1.5-13b
+├─Llama-2-7b-chat-hf
+└─Llama-2-13b-chat-hf
+```
+Then organize your image data in `.parquet` format with binary image stored in the `frame` field.
 Run the followig script to generate annotations for your parquet data files stored in `<source_path>`.
+`<model_size>` should be set as either `7b` or `13b`, corresponding to pipelines for different model size. 
 ```bash
 bash generate_all_annotations.sh <model_size> <source_path>
 ```
