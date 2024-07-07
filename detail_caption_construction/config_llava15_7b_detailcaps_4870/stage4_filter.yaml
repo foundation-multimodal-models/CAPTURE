@@ -1,0 +1,9 @@
+
+model_path: owlv2-large-patch14-ensemble
+threshold: 0.01
+nms_threshold: 0.1
+batch_size: 8
+
+ckpt_path: detail_caption_construction/ckpt/
+source_path: detail_caption_construction/data/stage3_local_caption/
+target_path: detail_caption_construction/data/stage4_filter/

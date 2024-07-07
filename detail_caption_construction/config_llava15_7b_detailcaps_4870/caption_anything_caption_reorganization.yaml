@@ -1,0 +1,53 @@
+model:
+  vision_encoder_type: vit-eva_h/14 # eva_clip_g # vit-eva_h/14
+  lm_decoder_type: 'llama'
+  lm_pretrained_path: ./reservoir/vicuna-13b #hdfs://haruna/home/byte_data_aml_research/user/cruise/Altman/ckpt_ziye/vicuna_cn_90w_new_version
+  stage: 'stage1'
+  freeze_lm: true
+  freeze_vision: true
+  freeze_qformer: false
+  freeze_linear: false
+  gradient_checkpointing: ['vision']
+  max_new_tokens: 64 # max tokens in generation at validation stage
+  tokenizer_path: ./reservoir/vicuna_tokenizer
+  
+  # qformer's config = bert config
+  qformer_config:
+    add_cross_attention: true
+    attention_probs_dropout_prob: 0.1
+    classifier_dropout: null
+    cross_attention_freq: 2
+    gradient_checkpointing: false
+    hidden_act: gelu
+    hidden_dropout_prob: 0.1
+    hidden_size: 768
+    initializer_range: 0.02
+    intermediate_size: 3072
+    layer_norm_eps: 1e-12
+    max_position_embeddings: 512
+    model_type: bert
+    num_attention_heads: 12
+    num_hidden_layers: 12
+    pad_token_id: 0
+    position_embedding_type: absolute
+    query_length: 32
+    type_vocab_size: 2
+    use_cache: true
+    vocab_size: 30522
+  load_legacy_ckpt: # TODO: Qformer.pth doesn't include "query_tokens"
+    - ./reservoir/mp_rank_00_model_states.pt
+  ckpt_rename_parameters:
+    - {'module.': ''}
+
+
+origin: false
+
+hdfs_data_paths:
+  # - hdfs://haruna/home/byte_data_aml/user/donghongyuan.dousia/caption_anything/case_study/llava_local_caption.parquet
+  # - hdfs://haruna/home/byte_data_aml/user/donghongyuan.dousia/caption_anything/dataset/zc_1m/local_caption/*
+  - reservoir/local_caption_cropped_merged_processed_data
+  # - hdfs://haruna/home/byte_data_aml/user/donghongyuan.dousia/caption_anything/case_study/filter_area_merge_bbox_kmeans_local_caption.parquet
+
+
+# hdfs_data_processed_path: hdfs://haruna/home/byte_data_aml/user/donghongyuan.dousia/caption_anything/dataset/detailcaps_100_llava15_recaption/caption_reorganization_cropped_filtered
+hdfs_data_processed_path: hdfs://haruna/home/byte_data_aml/user/donghongyuan.dousia/caption_anything/dataset/detailcaps_5000_llava15_7b_pipeline/caption_reorganization_cropped

@@ -1,0 +1,8 @@
+
+model_path: Llama-2-7b-chat-hf  # Llama-2-13b-chat-hf
+batch_size: 4
+
+ckpt_path: detail_caption_construction/ckpt/
+source_path: detail_caption_construction/data/stage4_filter/
+target_path: detail_caption_construction/data/stage5_caption_merge/
+
