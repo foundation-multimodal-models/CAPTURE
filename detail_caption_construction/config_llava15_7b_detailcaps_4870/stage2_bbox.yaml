@@ -1,0 +1,33 @@
+model:
+  # 7b pipeline
+  visual_encoder: 'vit_l'
+  checkpoint: sam/sam_vit_l_0b3195.pth
+  # # 13b pipeline
+  # visual_encoder: 'vit_h'
+  # checkpoint: sam/sam_vit_h_4b8939.pth
+  mask:
+    points_per_side: 8      # point num per size, 
+    pred_iou_thresh: 0.66   # iou thresh
+    stability_score_thresh: 0.86    # 
+    crop_n_layers: 1
+    crop_n_points_downscale_factor: 2
+    min_mask_region_area: 100  # Requires open-cv to run post-processing on the mask.
+
+cluster:
+  merge_threshold: 0.
+  kmeans_center_num: 10
+  compress_scale: 4
+  expected_cropped_bbox_num_per_bbox: 2
+  bbox_to_be_cropped_num: 3
+  Draw:
+    draw_bbox: False
+
+do_cluster: True
+do_crop: True
+do_eval: True
+img_key: 'frame'
+batch_size: 1
+
+ckpt_path: detail_caption_construction/ckpt/
+source_path: detail_caption_construction/data/stage1_overall_caption/
+target_path: detail_caption_construction/data/stage2_bbox/

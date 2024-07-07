@@ -1,0 +1,7 @@
+
+model_path: llava-v1.5-7b
+batch_size: 8
+
+ckpt_path: detail_caption_construction/ckpt/
+source_path: detail_caption_construction/data/stage2_bbox/
+target_path: detail_caption_construction/data/stage3_local_caption/

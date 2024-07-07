@@ -1,6 +1,7 @@
 # Benchmarking and Improving Detail Image Caption
+[![License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
+<a href='https://arxiv.org/abs/2405.19092'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
 
-## All code and data will be released soon.
 
 Code and data for paper: 
 
@@ -15,7 +16,7 @@ Our paper is now available on [arXiv](https://github.com/foundation-multimodal-m
 Image captioning has long been regarded as a fundamental task in visual understanding. 
 Recently, however, few large vision-language model (LVLM) research discusses model's image captioning performance because of the outdated short-caption benchmarks and unreliable evaluation metrics. 
 In this work, we propose to benchmark detail image caption task by curating high-quality evaluation datasets annotated by human experts, GPT-4V and Gemini-1.5-Pro.
-We also design a more reliable caption evaluation metric called \textbf{CAPTURE} (CAPtion evaluation by exTracting and coUpling coRE information).
+We also design a more reliable caption evaluation metric called **CAPTURE** (CAPtion evaluation by exTracting and coUpling coRE information).
 CAPTURE extracts visual elements, e.g., objects, attributes and relations from captions, and then matches these elements through three stages, achieving the highest consistency with expert judgements over other rule-based or model-based caption metrics. 
 The proposed benchmark and metric provide reliable evaluation for LVLM's detailed image captioning ability. 
 Guided by this evaluation, we further explore to unleash LVLM's detail caption capabilities by synthesizing high-quality data through a five-stage data construction pipeline. 
@@ -82,23 +83,49 @@ bash prepare.sh
 ```
 
 ### Detail Image Caption Evaluation
-To evaluate the performance of a LVLM on DetailCaps-4870, run the following scripts. 
+We have wrapped the proposed CAPTURE evaluation metric into pip package, and you can install it as follows:
 ```bash
-bash evaluate.sh <model_prediction>
+pip3 install capture_metric
 ```
-`<model_prediction>` is the path of the model-generated caption file.
-Please organize your results in the following format:
-```
-{
-    'id': '0001',
-    'caption': 'A man is walking on the street.'
-}, 
-......
+After installation, CAPTURE metric can be used in the same way as other caption evaluation metrics implemented in [pycocoevalcap](https://github.com/sks3i/pycocoevalcap), such as BLEU, CIDEr, METEOR, ROUGE, etc.
+Here is an example:
+```python
+from capture_metric.capture import CAPTURE
+refs = {
+  <sample_key>: [ref_0, ref_1, ...],
+  ...
+}
+preds = {
+  <sample_key>: [pred_caption],
+  ...
+}
+
+evaluator = CAPTURE()
+score = evaluator.compute_score(refs, preds)
+print(f"CAPTURE score: {score}")
 ```
 
+You can now use [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) to evaluate you LVLM's detail image caption performance on the DetailCaps-4870 benchmark with CAPTURE metric. 
+We refer to [lmms detailcaps](https://github.com/EvolvingLMMs-Lab/lmms-eval) for more details.
+
+
 ### Detail Image Caption Construction
-Organize your image data in `.parquet` format with binary image stored in the `frame` field.
+For detail image caption construction, first download SAM, Owlv2, LLaVA-v1.5 (or other LVLM), LLaMA-2 and place them under `ckpt` folder: 
+```
+ckpt
+├─sam
+|  ├─sam_vit_h_4b8939.pth
+|  └─sam_vit_l_0b3195.pth
+├─owlv2-large-patch14-ensemble
+├─llava-v1.5-13b
+├─llava-v1.5-7b
+├─llava-v1.5-13b
+├─Llama-2-7b-chat-hf
+└─Llama-2-13b-chat-hf
+```
+Then organize your image data in `.parquet` format with binary image stored in the `frame` field.
 Run the followig script to generate annotations for your parquet data files stored in `<source_path>`.
+`<model_size>` should be set as either `7b` or `13b`, corresponding to pipelines for different model size. 
 ```bash
 bash generate_all_annotations.sh <model_size> <source_path>
 ```
@@ -106,7 +133,12 @@ bash generate_all_annotations.sh <model_size> <source_path>
 
 ## Citation
 ```bibtex
-@article{}
+@article{dong2024benchmarking,
+  title={Benchmarking and Improving Detail Image Caption},
+  author={Dong, Hongyuan and Li, Jiawen and Wu, Bohong and Wang, Jiacong and Zhang, Yuan and Guo, Haoyuan},
+  journal={arXiv preprint arXiv:2405.19092},
+  year={2024}
+}
 ```
 
 

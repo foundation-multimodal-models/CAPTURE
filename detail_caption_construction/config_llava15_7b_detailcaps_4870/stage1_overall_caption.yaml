@@ -1,0 +1,8 @@
+
+model_path: llava-v1.5-7b
+img_key: 'frame'
+batch_size: 8
+
+ckpt_path: detail_caption_construction/ckpt/
+source_path: detail_caption_construction/data/source_data/
+target_path: detail_caption_construction/data/stage1_overall_caption/
