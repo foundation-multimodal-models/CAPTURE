@@ -126,7 +126,7 @@ print(f"CAPTURE score: {score}")
 ```
 
 You can now use [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) to evaluate you LVLM's detail image caption performance on the DetailCaps-4870 benchmark with CAPTURE metric. 
-We refer to [lmms detailcaps](https://github.com/EvolvingLMMs-Lab/lmms-eval) for more details.
+We refer to [lmms detailcaps](https://github.com/EvolvingLMMs-Lab/lmms-eval/tasks/detailcaps) for more details.
 
 
 ### Detail Image Caption Construction
