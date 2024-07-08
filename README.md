@@ -1,12 +1,7 @@
 # Benchmarking and Improving Detail Image Caption
-<<<<<<< HEAD
-[![License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/tatsu-lab/stanford_alpaca/blob/main/LICENSE)
-<a href='https://arxiv.org/abs/2405.19092'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
-=======
 [![License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/foundation-multimodal-models/CAPTURE)
 <a href='https://arxiv.org/abs/2405.19092'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
-[![Dataset](https://img.shields.io/badge/Dataset-Huggingface%204.0-yellow)](https://huggingface.co/datasets/foundation-multimodal-models/DetailCaps-4870)
->>>>>>> origin/main
+[![Dataset](https://img.shields.io/badge/Dataset-Huggingface%20-yellow)](https://huggingface.co/datasets/foundation-multimodal-models/DetailCaps-4870)
 
 
 Code and data for paper: 
@@ -112,7 +107,7 @@ print(f"CAPTURE score: {score}")
 ```
 
 You can now use [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) to evaluate you LVLM's detail image caption performance on the DetailCaps-4870 benchmark with CAPTURE metric. 
-We refer to [lmms detailcaps](https://github.com/EvolvingLMMs-Lab/lmms-eval) for more details.
+We refer to [lmms detailcaps](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/detailcaps) for more details.
 
 
 ### Detail Image Caption Construction
