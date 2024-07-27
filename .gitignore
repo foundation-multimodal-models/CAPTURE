@@ -4,7 +4,6 @@
 detail_caption_construction/LLaVA
 capture/FactualSceneGraph
 detail_caption_construction/*data
-detail_caption_construction/*stage*
 detail_caption_construction/scripts_output/*
 check.py
 *__pycache__*
@@ -16,3 +15,6 @@ capture/README.md
 capture/dist
 capture/*.egg-info
 capture/build
+
+*.DS_Store*
+*.out
